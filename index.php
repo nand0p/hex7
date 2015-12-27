@@ -74,7 +74,7 @@
 		<table border=0 width=100%><tr>
 		<td><img src=xtree.gif width=150></td>
 		<td width=40% align=center>
-		<b><font size=5>&copy;2000-2015</font></b><br>
+		<b><font size=5>&copy;2000-2016</font></b><br>
 		<a target=_blank href=http://hex7.com>
 		<b><font color=red size=+2>Hex 7 Internet Solutions</font></b></a></td>
 		<td><img src=heart.gif width=100></td>
