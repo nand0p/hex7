@@ -1,4 +1,5 @@
 <?php
+        date_default_timezone_set('America/New_York');
 	$num = rand(1000000,99999999);
 	$id = "E" . chr(65 + mt_rand(0, 5));
         $visnum = $id . $num; 
