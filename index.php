@@ -64,7 +64,7 @@
         echo "</td></tr>";
     }
     echo "</table>";
-    for ($k = 0; $k < $whitespace) { echo "&nbsp;"; }
+    for ($j = 0; $j < $whitespace; $j++) { echo "&nbsp;"; }
     echo "
         </td></tr></table>
         <center><br><p><br>
