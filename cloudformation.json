@@ -1,0 +1,212 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "www",
+  "Parameters": {
+    "amiID": {
+      "Type": "String",
+      "Default": "ami-60b6c60a"
+    },
+    "instanceType": {
+      "Type": "String",
+      "Default": "t2.micro"
+    },
+    "wwwPort": {
+      "Type": "String",
+      "Default": "80"
+    },
+    "vpcCIDR": { "Type": "String" },
+    "publicCIDR": { "Type": "String" },
+    "wwwStackName": { "Type": "String" },
+    "wwwTrustedIP": { "Type": "String" },
+    "PrivateKey": { "Type": "String" },
+    "KeyName": { "Type": "AWS::EC2::KeyPair::KeyName" }
+  },
+  "Mappings": {
+    "AvailabilityZone": {
+      "us-east-1": {
+        "AZPublic": "us-east-1a"
+      }
+    }
+  },
+  "Resources": {
+    "wwwVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "EnableDnsSupport": "true",
+        "EnableDnsHostnames": "true",
+        "CidrBlock": { "Ref": "vpcCIDR" },
+        "Tags": [
+          { "Key": "Name", "Value": { "Ref": "AWS::StackName" } },
+          { "Key": "origin", "Value": { "Ref": "AWS::StackName" } } 
+        ]
+      }
+    },
+    "wwwSubnetPublic": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::FindInMap": [
+            "AvailabilityZone", { "Ref": "AWS::Region" }, "AZPublic"
+          ]
+        },
+        "VpcId": { "Ref": "wwwVPC" },
+        "CidrBlock": { "Ref": "publicCIDR" },
+        "Tags": [
+          { "Key": "Name", "Value": { "Ref": "AWS::StackName" } },
+          { "Key": "origin", "Value": { "Ref": "AWS::StackName" } } 
+        ]
+      }
+    },
+    "wwwNIChex7" : {
+      "Type" : "AWS::EC2::NetworkInterface",
+      "Properties" : {
+        "SubnetId" : { "Ref" : "wwwSubnetPublic" },
+        "Description" :"Network Interface for hex7",
+        "GroupSet" : [ {"Ref" : "wwwSecurityGroup"} ],
+        "SourceDestCheck" : "true",
+        "Tags" : [ 
+          { "Key" : "website", "Value" : "hex7"},
+          { "Key" : "origin", "Value": { "Ref": "AWS::StackName" } } 
+        ]
+      }
+    },
+    "wwwNICdamnswank" : {
+      "Type" : "AWS::EC2::NetworkInterface",
+      "Properties" : {
+        "SubnetId" : { "Ref" : "wwwSubnetPublic" },
+        "Description" :"Network Interface for damnswank",
+        "GroupSet" : [ {"Ref" : "wwwSecurityGroup"} ],
+        "SourceDestCheck" : "true",
+        "Tags" : [ 
+          { "Key": "website", "Value" : "damnswank" },
+          { "Key": "origin", "Value": { "Ref": "AWS::StackName" } } 
+        ]
+      }
+    },
+    "wwwEIPhex7" : {
+      "Type" : "AWS::EC2::EIP",
+      "Properties" : {
+        "Domain" : "vpc"
+      }
+    },
+    "wwwEIPdamnswank" : {
+      "Type" : "AWS::EC2::EIP",
+      "Properties" : {
+        "Domain" : "vpc"
+      }
+    },
+    "VpcIPAssocHex7" : {
+      "Type" : "AWS::EC2::EIPAssociation",
+      "Properties" : {
+        "NetworkInterfaceId" : { "Ref" : "wwwNIChex7" },
+        "AllocationId" : { "Fn::GetAtt" : [ "wwwEIPhex7", "AllocationId" ]}
+      }
+    },
+    "VpcIPAssocDamnswank" : {
+      "Type" : "AWS::EC2::EIPAssociation",
+      "Properties" : { 
+        "NetworkInterfaceId" : { "Ref" : "wwwNICdamnswank" },
+        "AllocationId" : { "Fn::GetAtt" : [ "wwwEIPdamnswank", "AllocationId" ]}
+      }
+    },
+    "wwwInternetGateway": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [{
+          "Key": "Name",
+          "Value": { "Ref": "AWS::StackName" }
+        }]
+      }
+    },
+    "wwwInternetGatewayAttach": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": { "Ref": "wwwVPC" },
+        "InternetGatewayId": { "Ref": "wwwInternetGateway" }
+      }
+    },
+    "wwwRouteTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": { "Ref": "wwwVPC" }
+      }
+    },
+    "wwwDefaultRoute": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": { "Ref": "wwwRouteTable" },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": { "Ref": "wwwInternetGateway" }
+      }
+    },
+    "wwwRouteTableAssociationPublicSubnet": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "SubnetId": { "Ref": "wwwSubnetPublic" },
+        "RouteTableId": { "Ref": "wwwRouteTable" }
+      }
+    },
+    "wwwSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "www security group",
+        "VpcId": { "Ref": "wwwVPC" },
+        "Tags": [{
+          "Key": "Name",
+          "Value": { "Ref": "AWS::StackName" }
+        }],
+        "SecurityGroupIngress": [{
+          "IpProtocol": "tcp",
+          "FromPort": "80",
+          "ToPort": "80",
+          "CidrIp": "0.0.0.0/0"
+          }, 
+          {
+          "IpProtocol": "tcp",
+          "FromPort": "22",
+          "ToPort": "22",
+          "CidrIp": { "Ref": "wwwTrustedIP" }
+        }]
+      }
+    },
+    "wwwInstance": {
+      "Type": "AWS::EC2::Instance",
+      "DependsOn": "wwwInternetGatewayAttach",
+      "Properties": {
+        "ImageId": { "Ref": "amiID" },
+        "InstanceType" : { "Ref": "instanceType" },
+        "KeyName": { "Ref": "KeyName" },
+        "Tags": [ 
+          { "Key": "Name", "Value": { "Ref": "AWS::StackName" } },
+          { "Key": "origin", "Value": { "Ref": "AWS::StackName" } }
+        ],
+        "NetworkInterfaces" : [ 
+          { "NetworkInterfaceId" : {"Ref" : "wwwNIChex7"}, "DeviceIndex" : "0" },
+          { "NetworkInterfaceId" : {"Ref" : "wwwNICdamnswank"}, "DeviceIndex" : "1" }
+        ],
+        "UserData" : { "Fn::Base64" : { "Fn::Join" : [ "", [
+            "#!/bin/bash -ex",
+            "\n",
+            "\n",
+            "yum install ec2-net-utils -y",
+            "\n",
+            "ec2ifup eth1" ] ] }
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "wwwVPC": {
+      "Value": { "Ref": "wwwVPC" }
+    },
+    "wwwSubnetPublic": {
+      "Value": { "Ref": "wwwSubnetPublic" }
+    },
+    "wwwTrustedIP": {
+      "Value": { "Ref": "wwwTrustedIP" }
+    },
+    "KeyName": {
+      "Value": { "Ref": "KeyName" }
+    }
+  }
+}
