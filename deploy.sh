@@ -5,8 +5,8 @@ clear
 stackName="www-$(date +%Y%m%d-%H%M)"
 keyName=$stackName
 cfnFile="file://cloudformation.json"
-cliOpts=" --region us-east-1 --output json --profile hex7 "
-echo -e "\n\n==> STACK: $stackName\n\tKeyname: $keyName\n\tcloudformation: $cfnFile\n\tcliopts: $cliOpts\n\n"
+cliOpts=" --region us-east-1 --output text --profile hex7 "
+echo -e "\n\n==> STACK: $stackName\n\tKeyname: $keyName\n\tcloudformation: $cfnFile\n\tcliopts: $cliOpts\n"
 
 envVarTest1=$(env|grep WWW_VPC_CIDR |cut -f2 -d=)
 envVarTest2=$(env|grep WWW_PUBLIC_CIDR |cut -f2 -d=)
@@ -33,9 +33,10 @@ cfnParameters+=" ParameterKey=publicCIDR,ParameterValue=$WWW_PUBLIC_CIDR "
 cfnParameters+=" ParameterKey=wwwTrustedIP,ParameterValue=$WWW_TRUSTED_IP "
 cfnParameters+=" ParameterKey=KeyName,ParameterValue=$keyName "
 echo -e "\n\n==> load variables:\n\t$cfnParameters"
-echo -e "\n==> launch cloudformation stack:\n\t$stackName"
+echo -e "\n\n==> launch cloudformation stack:\n\t$stackName"
 
-aws $cliOpts cloudformation create-stack --stack-name $stackName --disable-rollback --template-body $cfnFile --parameters "ParameterKey=PrivateKey,ParameterValue=$privateKeyValue" $cfnParameters
+aws $cliOpts cloudformation create-stack --stack-name $stackName --disable-rollback --template-body $cfnFile \
+    --parameters "ParameterKey=PrivateKey,ParameterValue=$privateKeyValue" $cfnParameters
 
 echo -e "\n\n==> wait for stack:\n\t$stackName"
 sleep 10

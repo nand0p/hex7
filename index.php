@@ -4,7 +4,7 @@
     $bgcolor="#FF0000";
     $linkcolor="#FFFFFF";
     $linkcolor="red";
-    $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+    $ip=$_SERVER['REMOTE_ADDR'];
     $os=$_SERVER['HTTP_USER_AGENT'];
     $date=date('YMd-D-G:i:s-e');
     $datepage=date('YMd')."<br>".date('D:G:i:s');

@@ -258,13 +258,13 @@
                 "command": "git clone https://github.com/nand0p/damnswank.git /var/www/www.damnswank.com"
               },
               "movefile1": {
-                "command": "mv -v hex7/files/www.conf /etc/php-fpm.d/www.conf"
+                "command": "mv -v /var/www/www.hex7.com/files/www.conf /etc/php-fpm.d/www.conf"
               },
               "movefile2": {
-                "command": "mv -v hex7/files/hex7.conf /etc/nginx/conf.d/hex7.conf"
+                "command": "mv -v /var/www/www.hex7.com/files/hex7.conf /etc/nginx/conf.d/hex7.conf"
               },
               "movefile3": {
-                "command": "mv -v hex7/files/damnswank.com /etc/nginx/conf.d/damnswank.conf"
+                "command": "mv -v /var/www/www.hex7.com/files/damnswank.conf /etc/nginx/conf.d/damnswank.conf"
               }
             },
             "services": {
