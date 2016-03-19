@@ -185,12 +185,109 @@
           { "NetworkInterfaceId" : {"Ref" : "wwwNICdamnswank"}, "DeviceIndex" : "1" }
         ],
         "UserData" : { "Fn::Base64" : { "Fn::Join" : [ "", [
-            "#!/bin/bash -ex",
-            "\n",
-            "\n",
-            "yum install ec2-net-utils -y",
-            "\n",
-            "ec2ifup eth1" ] ] }
+              "#!/bin/bash\n",
+              "yum update -y aws-cfn-bootstrap ec2-net-utils epel-release",
+              "\n",
+              "ec2ifup eth1",
+              "\n",
+              "mkdir -pv /var/www",
+              "\n",
+              "/opt/aws/bin/cfn-init -v ",
+              "         --stack ", { "Ref": "AWS::StackName" },
+              "         --resource wwwInstance ",
+              "         --region ", { "Ref": "AWS::Region" },
+              "\n",
+              "/opt/aws/bin/cfn-signal -e $? ",
+              "         --stack ", { "Ref": "AWS::StackName" },
+              "         --resource wwwInstance ",
+              "         --region ", { "Ref": "AWS::Region" },
+              "\n" ] ] }
+        }
+      },
+      "Metadata": {
+        "Comment": "hex7 web server",
+        "AWS::CloudFormation::Init": {
+          "config": {
+            "packages": {
+              "yum": {
+                "nginx": [],
+                "php-fpm": [],
+                "jwhois": [],
+                "git": []
+              }
+            },
+            "files": {
+              "/etc/cfn/cfn-hup.conf": {
+                "content": {
+                  "Fn::Join": ["", [
+                    "[main]\n",
+                    "stack=", { "Ref": "AWS::StackId" }, "\n",
+                    "region=", { "Ref": "AWS::Region" }, "\n"
+                  ]]
+                },
+                "mode": "000400",
+                "owner": "root",
+                "group": "root"
+              },
+              "/etc/cfn/hooks.d/cfn-auto-reloader.conf": {
+                "content": {
+                  "Fn::Join": ["", [
+                    "[cfn-auto-reloader-hook]\n",
+                    "triggers=post.update\n",
+                    "path=Resources.NandoDemoJenkins.Metadata.AWS::CloudFormation::Init\n",
+                    "action=/opt/aws/bin/cfn-init -v ",
+                    "         --stack ", { "Ref": "AWS::StackName" },
+                    "         --resource NandoDemoJenkins ",
+                    "         --region ", { "Ref": "AWS::Region" }, "\n",
+                    "runas=root\n"
+                  ]]
+                }
+              },
+              "/var/www/cloudformation-stack-name": {
+                "content": { "Ref": "AWS::StackName" },
+                "mode": "000400",
+                "owner": "root",
+                "group": "root"
+              }
+            },
+            "commands": {
+              "clonerepo1": {
+                "command": "git clone https://github.com/nand0p/hex7.git /var/www/www.hex7.com"
+              },
+              "clonerepo2": {
+                "command": "git clone https://github.com/nand0p/damnswank.git /var/www/www.damnswank.com"
+              },
+              "movefile1": {
+                "command": "mv -v hex7/files/www.conf /etc/php-fpm.d/www.conf"
+              },
+              "movefile2": {
+                "command": "mv -v hex7/files/hex7.conf /etc/nginx/conf.d/hex7.conf"
+              },
+              "movefile3": {
+                "command": "mv -v hex7/files/damnswank.com /etc/nginx/conf.d/damnswank.conf"
+              }
+            },
+            "services": {
+              "sysvinit": {
+                "nginx": {
+                  "enabled": "true",
+                  "ensureRunning": "true"
+                },
+                "php-fpm": {
+                  "enabled": "true",
+                  "ensureRunning": "true"
+                },
+                "cfn-hup": {
+                  "enabled": "true",
+                  "ensureRunning": "true",
+                  "files": [
+                    "/etc/cfn/cfn-hup.conf",
+                    "/etc/cfn/hooks.d/cfn-auto-reloader.conf"
+                  ]
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -204,6 +301,12 @@
     },
     "wwwTrustedIP": {
       "Value": { "Ref": "wwwTrustedIP" }
+    },
+    "wwwEIPhex7" : {
+      "Value": { "Ref": "wwwEIPhex7" }
+    },
+    "wwwEIPdamnswank" : {
+      "Value": { "Ref": "wwwEIPdamnswank" }
     },
     "KeyName": {
       "Value": { "Ref": "KeyName" }

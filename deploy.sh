@@ -2,11 +2,11 @@
 
 clear
 
-keyName=www
 stackName="www-$(date +%Y%m%d-%H%M)"
+keyName=$stackName
 cfnFile="file://cloudformation.json"
 cliOpts=" --region us-east-1 --output json --profile hex7 "
-echo "\n\n==> $stackName\n\t$keyName\n\t$cfnFile\n\t$cliOpts"
+echo -e "\n\n==> STACK: $stackName\n\tKeyname: $keyName\n\tcloudformation: $cfnFile\n\tcliopts: $cliOpts\n\n"
 
 envVarTest1=$(env|grep WWW_VPC_CIDR |cut -f2 -d=)
 envVarTest2=$(env|grep WWW_PUBLIC_CIDR |cut -f2 -d=)
@@ -38,11 +38,9 @@ echo -e "\n==> launch cloudformation stack:\n\t$stackName"
 aws $cliOpts cloudformation create-stack --stack-name $stackName --disable-rollback --template-body $cfnFile --parameters "ParameterKey=PrivateKey,ParameterValue=$privateKeyValue" $cfnParameters
 
 echo -e "\n\n==> wait for stack:\n\t$stackName"
-sleep 5
+sleep 10
 
-echo -e "\n\n==> Write out private key:\n\t$keyName.pem"
-rm -fv $keyName.pem
-echo
+echo -e "\n\n==> Write out private key:\n\t$keyName.pem\n\n"
 aws $cliOpts cloudformation describe-stacks --stack-name $stackName|grep PrivateKey -A22|cut -f3 > $keyName.pem
 chmod -c 0400 $keyName.pem
 echo
