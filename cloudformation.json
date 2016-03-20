@@ -241,7 +241,10 @@
                     "         --region ", { "Ref": "AWS::Region" }, "\n",
                     "runas=root\n"
                   ]]
-                }
+                },
+                "mode": "000400",
+                "owner": "root",
+                "group": "root"
               },
               "/var/www/cloudformation-stack-name": {
                 "content": { "Ref": "AWS::StackName" },
@@ -250,22 +253,15 @@
                 "group": "root"
               }
             },
+            "sources": {
+              "/var/www/www.hex7.com": "https://github.com/nand0p/hex7/tarball/master",
+              "/var/www/www.damnswank.com": "https://github.com/nand0p/damnswank/tarball/master"
+            },
             "commands": {
-              "clonerepo1": {
-                "command": "git clone https://github.com/nand0p/hex7.git /var/www/www.hex7.com"
-              },
-              "clonerepo2": {
-                "command": "git clone https://github.com/nand0p/damnswank.git /var/www/www.damnswank.com"
-              },
-              "movefile1": {
-                "command": "mv -v /var/www/www.hex7.com/files/www.conf /etc/php-fpm.d/www.conf"
-              },
-              "movefile2": {
-                "command": "mv -v /var/www/www.hex7.com/files/hex7.conf /etc/nginx/conf.d/hex7.conf"
-              },
-              "movefile3": {
-                "command": "mv -v /var/www/www.hex7.com/files/damnswank.conf /etc/nginx/conf.d/damnswank.conf"
-              }
+              "movefile1": { "command": "mv -v /var/www/www.hex7.com/files/www.conf /etc/php-fpm.d/www.conf" },
+              "movefile2": { "command": "mv -v /var/www/www.hex7.com/files/hex7.conf /etc/nginx/conf.d/hex7.conf" },
+              "movefile3": { "command": "mv -v /var/www/www.hex7.com/files/damnswank.conf /etc/nginx/conf.d/damnswank.conf" },
+              "movefile4": { "command": "rmdir -v /var/www/www.hex7.com/files" }
             },
             "services": {
               "sysvinit": {

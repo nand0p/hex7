@@ -6,7 +6,7 @@ stackName="www-$(date +%Y%m%d-%H%M)"
 keyName=$stackName
 cfnFile="file://cloudformation.json"
 cliOpts=" --region us-east-1 --output text --profile hex7 "
-echo -e "\n\n==> STACK: $stackName\n\tKeyname: $keyName\n\tcloudformation: $cfnFile\n\tcliopts: $cliOpts\n"
+echo -e "\n\n==> STACK: $stackName\n\tKeyname: $keyName\n\tcloudformation: $cfnFile\n\tcliopts: $cliOpts"
 
 envVarTest1=$(env|grep WWW_VPC_CIDR |cut -f2 -d=)
 envVarTest2=$(env|grep WWW_PUBLIC_CIDR |cut -f2 -d=)
@@ -16,7 +16,7 @@ if [ -z "$envVarTest1" ] ||
    [ -z "$envVarTest2" ] ||
    [ -z "$envVarTest3" ]
 then
-    echo -e "\nEnvironment variables must be set:\n"
+    echo -e "\n\nEnvironment variables must be set:\n"
     echo -e "\n\t\tWWW_VPC_CIDR: $envVarTest1"
     echo -e "\t\tWWW_PUBLIC_CIDR: $envVarTest2"
     echo -e "\t\tWWW_TRUSTED_IP: $envVarTest3\n"
@@ -42,7 +42,7 @@ echo -e "\n\n==> wait for stack:\n\t$stackName"
 sleep 10
 
 echo -e "\n\n==> Write out private key:\n\t$keyName.pem\n\n"
-aws $cliOpts cloudformation describe-stacks --stack-name $stackName|grep PrivateKey -A22|cut -f3 > $keyName.pem
+aws $cliOpts cloudformation describe-stacks --stack-name $stackName | grep PrivateKey -A22 | cut -f3 > $keyName.pem
 chmod -c 0400 $keyName.pem
-echo
 ls -la $keyName.pem
+echo -e "\n\n"
