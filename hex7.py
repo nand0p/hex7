@@ -4,6 +4,7 @@ from netaddr import IPAddress
 from random import randint
 
 app = Flask(__name__)
+
 color = "#FF0000"
 rows = 55
 columns = 200
@@ -15,7 +16,7 @@ density = 80
 def home():
     html = []
     html.extend(_head())
-    html.extend(_ip())
+    html.extend(_rezo())
     html.extend(_body())
     html.extend(_foot())
     return ''.join([ str(x) for x in html ])
@@ -36,24 +37,21 @@ def _head():
                    "<font name=garamond><p>" ])
     return _html
 
-def _ip():
+def _rezo():
     _html = []
     if request.headers.getlist("X-Forwarded-For"):
-        ip = request.headers.getlist("X-Forwarded-For")[0]
+        _ip = request.headers.getlist("X-Forwarded-For")[0]
     else:
-        ip = request.remote_addr
-    _html.extend([ "<center><h1 name=ip>", ip, "</h1><p><br>" ])
-    if ip != "127.0.0.1":
-        if not IPAddress(ip).is_private():
-            _ip_info = IPWhois(ip).lookup_rdap(depth=1)
+        _ip = request.remote_addr
+    _html.extend([ "<center><h1 name=ip>", _ip, "</h1><p><br>" ])
+    if _ip != "127.0.0.1":
+        if not IPAddress(_ip).is_private():
+            _ip_info = IPWhois(_ip).lookup_rdap(depth=1)
             _entity = _ip_info.get('entities')[0]
-            _links = _ip_info.get('network').get('links')
             _html.extend([ _ip_info.get('network').get('name'), "<br>",
                            _ip_info.get('network').get('cidr'), "<br>",
                            _ip_info.get('network').get('handle'), "<br>",
-                           _ip_info.get('network').get('parent_handle'), "<br>" ])
-            for _link in _links:
-                _html.extend([ _link, "<br>" ])
+                           _ip_info.get('network').get('links')[0], "<br>" ])
             _html.append(_ip_info.get('objects').get(_entity).get('contact').get('address')[0].get('value'))
     return _html
 

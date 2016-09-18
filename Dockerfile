@@ -14,8 +14,6 @@ COPY gunicorn.logging.conf /
 
 RUN curl https://bootstrap.pypa.io/get-pip.py | python -
 
-RUN pip install gunicorn flask json-logging-py ipwhois netaddr
-
-RUN pip -V && gunicorn -v
+RUN pip install gunicorn flask json-logging-py ipwhois netaddr && pip -V && gunicorn -v
 
 CMD [ "sh", "-c", "gunicorn --config /gunicorn.conf --log-config /gunicorn.logging.conf -b :${SERVICE_PORT} hex7:app" ]
