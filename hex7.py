@@ -45,7 +45,16 @@ def _ip():
     _html.extend([ "<center><h1 name=ip>", ip, "</h1><p><br>" ])
     if ip != "127.0.0.1":
         if not IPAddress(ip).is_private():
-            _html.extend([ "<pre>", str(IPWhois(ip).lookup_rdap(depth=1)), "</pre>" ])
+            _ip_info = IPWhois(ip).lookup_rdap(depth=1)
+            _entity = _ip_info.get('entities')[0]
+            _links = _ip_info.get('network').get('links')
+            _html.extend([ _ip_info.get('network').get('name'), "<br>",
+                           _ip_info.get('network').get('cidr'), "<br>",
+                           _ip_info.get('network').get('handle'), "<br>",
+                           _ip_info.get('network').get('parent_handle'), "<br>" ])
+            for _link in _links:
+                _html.extend([ _link, "<br>" ])
+            _html.append(_ip_info.get('objects').get(_entity).get('contact').get('address')[0].get('value'))
     return _html
 
 def _body():
