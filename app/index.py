@@ -44,7 +44,7 @@ def _rezo():
         _ip = request.headers.getlist("X-Forwarded-For")[0]
     else:
         _ip = request.remote_addr
-    _html.extend([ '<center><h1 name=ip>', _ip, '</h1><p>', str(request.headers), '<p><br>' ])
+    _html.extend([ '<center><h1 name=ip>', _ip, '</h1><br>' ])
     if _ip != '127.0.0.1' and _ip != '172.17.0.1':
         if not IPAddress(_ip).is_private():
             _ip_info = IPWhois(_ip).lookup_rdap(depth=1)
