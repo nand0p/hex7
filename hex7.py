@@ -40,9 +40,9 @@ def _head():
 def _rezo():
     _html = []
 
-    #if request.headers.getlist("X-Forwarded-For"):
-    #    _ip = request.headers.getlist("X-Forwarded-For")[0]
-    #else:
+    if request.headers.getlist("X-Forwarded-For"):
+        _ip = request.headers.getlist("X-Forwarded-For")[0]
+    else:
     _ip = request.remote_addr
     _html.extend([ '<center><h1 name=ip>', _ip, '</h1><p>', str(request.headers), '<p><br>' ])
     if _ip != '127.0.0.1' and _ip != '172.17.0.1':
