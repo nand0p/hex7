@@ -15,4 +15,4 @@ RUN gunicorn --version && flask --version
 
 ENV SERVICE_PORT 8000
 
-CMD [ "sh", "-c", "gunicorn --config gunicorn.conf --log-config gunicorn.logging.conf -b :${SERVICE_PORT} hex7:app" ]
+CMD [ "gunicorn", "--config", "gunicorn.conf", "--log-config", "gunicorn.logging.conf", "-b", ":${SERVICE_PORT}", "hex7:app" ]

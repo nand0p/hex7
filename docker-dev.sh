@@ -14,3 +14,6 @@ docker run --rm \
 	   -d \
 	   -p 8000:8000 \
            hex7-dev
+
+sleep 5
+docker ps
