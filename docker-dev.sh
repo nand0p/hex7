@@ -6,7 +6,7 @@ docker build -t hex7-dev \
 	     --build-arg "REVISION=$(git rev-parse HEAD)" \
 	     .
 
-docker kill dev 2> /dev/null || true
+docker kill hex7-dev 2> /dev/null || true
 sleep 2
 
 docker run --rm \

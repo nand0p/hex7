@@ -1,4 +1,4 @@
-FROM centos:7
+FROM python:buster
 
 MAINTAINER "Fernando J Pando" <nando@hex7.com>
 
@@ -7,12 +7,11 @@ ARG REVISION
 
 COPY . /hex7
 WORKDIR /hex7
-RUN sed -i 's|SEDME|$REVISION -- $DATE|g' hex7.py
+RUN sed -i "s|SEDME|$REVISION -- $DATE|g" hex7.py
 RUN cat hex7.py
 
-RUN curl https://bootstrap.pypa.io/get-pip.py | python -
-
-RUN pip install gunicorn flask json-logging-py ipwhois netaddr && pip -V && gunicorn -v
+RUN pip install -r requirements.txt
+RUN gunicorn --version && flask --version
 
 ENV SERVICE_PORT 8000
 

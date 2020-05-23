@@ -45,7 +45,7 @@ def _rezo():
     #else:
     _ip = request.remote_addr
     _html.extend([ '<center><h1 name=ip>', _ip, '</h1><p>', str(request.headers), '<p><br>' ])
-    if _ip != '127.0.0.1' and _ip != '172.17.0.1' :
+    if _ip != '127.0.0.1' and _ip != '172.17.0.1':
         if not IPAddress(_ip).is_private():
             _ip_info = IPWhois(_ip).lookup_rdap(depth=1)
             _entity = _ip_info.get('entities')[0]
@@ -83,7 +83,7 @@ def _foot():
     _html.extend([ "<center><br><p><br><p><br><p>",
                    "<table border=0 width=100%><tr>",
                    "<td width=40% align=center>",
-                   "<b><font size=5>&copy;2000-2016</font></b><br>",
+                   "<b><font size=5>&copy;2000-2020</font></b><br>",
                    "<a target=_blank href=http://hex7.com>",
                    "<b><font color=", _textcolor, " size=+2>Hex 7 Internet Solutions</font></b></a>",
                    "</td> </tr></table></center>", request.headers.get('User-Agent'), " :: ",
