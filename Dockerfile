@@ -13,6 +13,6 @@ RUN cat hex7.py
 RUN pip install -r requirements.txt
 RUN gunicorn --version && flask --version
 
-ENV SERVICE_PORT 8000
+EXPOSE 8000
 
-CMD [ "gunicorn", "--config", "gunicorn.conf", "--log-config", "gunicorn.logging.conf", "-b", ":${SERVICE_PORT}", "hex7:app" ]
+CMD [ "gunicorn", "hex7:app" ]

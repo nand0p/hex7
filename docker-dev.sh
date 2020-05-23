@@ -12,7 +12,7 @@ sleep 2
 docker run --rm \
            --name hex7-dev \
 	   -d \
-	   -p 8000:8000 \
+	   -p 8002:8000 \
            hex7-dev
 
 sleep 5

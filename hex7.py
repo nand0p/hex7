@@ -43,7 +43,7 @@ def _rezo():
     if request.headers.getlist("X-Forwarded-For"):
         _ip = request.headers.getlist("X-Forwarded-For")[0]
     else:
-    _ip = request.remote_addr
+        _ip = request.remote_addr
     _html.extend([ '<center><h1 name=ip>', _ip, '</h1><p>', str(request.headers), '<p><br>' ])
     if _ip != '127.0.0.1' and _ip != '172.17.0.1':
         if not IPAddress(_ip).is_private():
@@ -90,3 +90,6 @@ def _foot():
                    "<a href=http://en.wikipedia.org/wiki/SOS>s0s</a> at hex7 d0t c0m",
                    "</body></html>" ])
     return _html
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8000, debug=True)
