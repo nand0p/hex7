@@ -54,6 +54,7 @@ def _rezo():
                            _ip_info.get('network').get('handle'), "<br>",
                            _ip_info.get('network').get('links')[0], "<br>" ])
             _html.append(_ip_info.get('objects').get(_entity).get('contact').get('address')[0].get('value'))
+    _html.extend(['<p>SEDME<p>'])
     return _html
 
 def _body():
