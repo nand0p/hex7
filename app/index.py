@@ -32,6 +32,8 @@ def _head():
                    "m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)",
                    "})(window,document,'script','//www.google-analytics.com/analytics.js','ga');",
                    "ga('create', 'UA-32710227-1', 'auto'); ga('send', 'pageview');</script>",
+                   "<script data-ad-client='ca-pub-9792012528290289' async",
+                   "src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>",
                    "<style>a { text-decoration: none; color: ", _textcolor, "; }</style>",
                    "</head><body link=", color, " vlink=", color, " alink=", color, ">",
                    "<font name=garamond><p>" ])
