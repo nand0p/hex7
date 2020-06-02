@@ -1,6 +1,6 @@
-FROM python:buster
+FROM python:3.8-slim
 
-MAINTAINER "Fernando J Pando" <nando@hex7.com>
+MAINTAINER "nando" <nando@hex7.com>
 
 ARG DATE
 ARG REVISION
