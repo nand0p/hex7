@@ -70,11 +70,7 @@ def _head():
 
 def _rezo():
     _html = []
-
-    if request.headers.getlist("X-Forwarded-For"):
-        _ip = request.headers.getlist("X-Forwarded-For")[0]
-    else:
-        _ip = request.remote_addr
+    _ip = _get_ip()
     _html.extend([ '<center><h1 name=ip>', _ip, '</h1><br>' ])
     if _ip != '127.0.0.1' and _ip != '172.17.0.1':
         if not IPAddress(_ip).is_private():
@@ -87,6 +83,12 @@ def _rezo():
             _html.append(_ip_info.get('objects').get(_entity).get('contact').get('address')[0].get('value'))
     _html.extend(['<p>SEDME<p>'])
     return _html
+
+def _get_ip():
+    if request.headers.getlist("X-Forwarded-For"):
+        return request.headers.getlist("X-Forwarded-For")[0]
+    else:
+        return request.remote_addr
 
 def _body():
     _html = []
@@ -117,7 +119,7 @@ def _foot():
                    "<b><font size=5>&copy;2000-2020</font></b><br>",
                    "<a target=_blank href=http://hex7.com>",
                    "<b><font color=", _textcolor, " size=+2>Hex 7 Internet Solutions</font></b></a>",
-                   "</td> </tr></table>", request.headers.get('User-Agent'),
+                   "</td> </tr></table>", request.headers.get('User-Agent'), '<br>', _get_ip(),
                    "</body></html>" ])
     return _html
 
