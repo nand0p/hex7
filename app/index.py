@@ -44,7 +44,7 @@ def _sales():
                    '<li>Image Automation with Packer and Ansible</li>',
                    '<li>DevSecOps: Integrate Security in Application and Infrastructure Pipelines</li>',
                    '<li>Emergency Linux Response</li>',
-                   '<ul><p><b>Contact: sales at hex7 dot com<b><p>',
+                   '<ul><p><b>Contact: sales at hex7 dot com<br>Call: 347.391.1709</b><p>',
                    '</td><td width=100>.</td></tr></table>'])
     return _html
 
