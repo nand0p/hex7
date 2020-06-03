@@ -117,8 +117,7 @@ def _foot():
                    "<b><font size=5>&copy;2000-2020</font></b><br>",
                    "<a target=_blank href=http://hex7.com>",
                    "<b><font color=", _textcolor, " size=+2>Hex 7 Internet Solutions</font></b></a>",
-                   "</td> </tr></table></center>", request.headers.get('User-Agent'), " :: ",
-                   "<a href=http://en.wikipedia.org/wiki/SOS>s0s</a> at hex7 d0t c0m",
+                   "</td> </tr></table>", request.headers.get('User-Agent'),
                    "</body></html>" ])
     return _html
 
