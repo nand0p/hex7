@@ -12,14 +12,43 @@ width = 65
 height = 175
 density = 80
 
+
+
 @app.route("/")
 def home():
+    html = []
+    html.extend(_head())
+    html.extend(_sales())
+    html.extend(_foot())
+    return ''.join([ str(x) for x in html ])
+
+
+@app.route("/ip")
+def ip():
     html = []
     html.extend(_head())
     html.extend(_rezo())
     html.extend(_body())
     html.extend(_foot())
     return ''.join([ str(x) for x in html ])
+
+
+def _sales():
+    _html = []
+    _html.extend([ '<table width=100%><tr><td width=100>.</td>',
+                   '<td><h1> Welcome to Hex7 Internet Solutions</h1> <br>',
+                   '<font size=+1>We provide the following services:<br><ul>',
+                   '<li>Linux Cloud Migrations with Containers and MicroServices</li>',
+                   '<li>Cloud Pipelines with CodePipeline, Gitlab, Jenkins, and BuildBot</li>',
+                   '<li>Infrastructure as Code with Terraform and Cloudformation</li>',
+                   '<li>Image Automation with Packer and Ansible</li>',
+                   '<li>DevSecOps: Integrate Security in Application and Infrastructure Pipelines</li>',
+                   '<li>Emergency Linux Response</li>',
+                   '<ul><p><b>Contact: sales at hex7 dot com<b><p>',
+                   '</td><td width=100>.</td></tr></table>'])
+    return _html
+
+
 
 def _head():
     _html = []
