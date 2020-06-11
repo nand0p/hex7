@@ -37,36 +37,37 @@ def _sales():
     _html = []
     _html.extend([ '<table width=100%><tr><td width=100>.</td>',
                    '<td><h1> Welcome to Hex7 Internet Solutions</h1> <br>',
-                   '<font size=+1>We provide the following services:<br><ul>',
-                   '<li>Linux Cloud Migrations with Containers and MicroServices</li>',
+                   '<font size=+1>We Provide the Following Services:<br><ul>',
+                   '<li>Linux Cloud Migrations with or without Containers</li>',
                    '<li>Cloud Pipelines with CodePipeline, Gitlab, Jenkins, and BuildBot</li>',
-                   '<li>Infrastructure as Code with Terraform and Cloudformation</li>',
+                   '<li>Infrastructure as Code with Terraform or Cloudformation</li>',
                    '<li>Image Automation with Packer and Ansible</li>',
                    '<li>DevSecOps: Integrate Security in Application and Infrastructure Pipelines</li>',
-                   '<li>Emergency Linux Response</li>',
-                   '<ul><p><b>Contact: sales at hex7 dot com<br>Call: 347.391.1709</b><p>',
+                   '<li>Emergency Linux Response</li></ul><p>',
+                   'Containerized Applications, Deployed via CICD, Interacting with Internet API Endpoints:<br>',
+                   '<ul><li><a href=http://covid.hex7.com>http://covid.hex7.com</a> ',
+                   'Covid-19 US Statistical Visualization</li>',
+                   '<li><a href=http://hubbleshow.com>http://hubbleshow.com</a> ',
+                   'NASA Hubble Telescope Image Gallery and Slideshow</li></ul>',
+                   '<p><br><p><b>Contact: sales at hex7 dot com<br>Call: 347.391.1709</b>',
                    '</td><td width=100>.</td></tr></table>'])
     return _html
 
 
 
 def _head():
-    _html = []
-    _textcolor = "black"
-    _html.extend([ "<html><head><title>Hex 7 Internet Solutions</title>",
-                   "<meta http-equiv=refresh content=20>",
-                   "<link rel=\"shortcut icon\" href=https://s3-us-west-1.amazonaws.com/hex7/favicon.ico>",
-                   "<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){",
-                   "(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),",
-                   "m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)",
-                   "})(window,document,'script','//www.google-analytics.com/analytics.js','ga');",
-                   "ga('create', 'UA-32710227-1', 'auto'); ga('send', 'pageview');</script>",
-                   "<script data-ad-client='ca-pub-9792012528290289' async",
-                   "src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>",
-                   "<style>a { text-decoration: none; color: ", _textcolor, "; }</style>",
-                   "</head><body link=", color, " vlink=", color, " alink=", color, ">",
-                   "<font name=garamond><p>" ])
-    return _html
+    return [ "<html><head><title>Hex 7 Internet Solutions</title>",
+             "<meta http-equiv=refresh content=20>",
+             "<link rel=\"shortcut icon\" href=https://s3-us-west-1.amazonaws.com/hex7/favicon.ico>",
+             "<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){",
+             "(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),",
+             "m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)",
+             "})(window,document,'script','//www.google-analytics.com/analytics.js','ga');",
+             "ga('create', 'UA-32710227-1', 'auto'); ga('send', 'pageview');</script>",
+             "<script data-ad-client='ca-pub-9792012528290289' async",
+             "src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>",
+             "</head><body><font name=garamond><p>" ]
+
 
 def _rezo():
     _html = []
