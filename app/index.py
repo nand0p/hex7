@@ -39,7 +39,7 @@ def _sales():
                    '<td><h1> Welcome to Hex7 Internet Solutions</h1> <br>',
                    '<font size=+1>We Provide the Following Services:<br><ul>',
                    '<li>Linux Cloud Migrations with or without Containers</li>',
-                   '<li>Cloud Pipelines with CodePipeline, Gitlab, Jenkins, and BuildBot</li>',
+                   '<li>Cloud Pipelines with CodePipeline, Gitlab, Jenkins, or BuildBot</li>',
                    '<li>Infrastructure as Code with Terraform or Cloudformation</li>',
                    '<li>Image Automation with Packer and Ansible</li>',
                    '<li>DevSecOps: Integrate Security in Application and Infrastructure Pipelines</li>',
