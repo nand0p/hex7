@@ -47,6 +47,8 @@ def _sales():
                    'Containerized Applications, Deployed via CICD, Interacting with Internet API Endpoints:<br>',
                    '<ul><li><a href=http://covid.hex7.com>http://covid.hex7.com</a> ',
                    'Covid-19 US Statistical Visualization</li>',
+                   '<li><a href=http://reart.hex7.com>http://reart.hex7.com</a> ',
+                   'Public Domain Art Slideshow</li>',
                    '<li><a href=http://hubbleshow.com>http://hubbleshow.com</a> ',
                    'NASA Hubble Telescope Image Gallery and Slideshow</li></ul>',
                    '<p><br><p><b>Contact: sales at hex7 dot com<br>Call: 347.391.1709</b>',
