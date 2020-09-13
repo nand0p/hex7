@@ -42,6 +42,7 @@ def _sales():
                    '<li>Cloud Pipelines with CodePipeline, Gitlab, Jenkins, or BuildBot</li>',
                    '<li>Infrastructure as Code with Terraform or Cloudformation</li>',
                    '<li>Image Automation with Packer and Ansible</li>',
+                   '<li>HashiCorp Clusters with Consul, Nomad, and Vault</li>',
                    '<li>DevSecOps: Integrate Security in Application and Infrastructure Pipelines</li>',
                    '<li>Emergency Linux Response</li></ul><p>',
                    'Containerized Applications, Deployed via CICD, Interacting with Internet API Endpoints:<br>',
