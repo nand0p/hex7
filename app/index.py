@@ -17,8 +17,11 @@ density = 80
 @app.route("/")
 def home():
     html = []
-    html.extend(_head())
-    html.extend(_sales())
+    html.extend(_google())
+    html.extend(_rezo())
+    #html.extend(_head())
+    #html.extend(_sales())
+    html.extend(_art())
     html.extend(_foot())
     return ''.join([ str(x) for x in html ])
 
@@ -26,18 +29,21 @@ def home():
 @app.route("/ip")
 def ip():
     html = []
-    html.extend(_head())
     html.extend(_rezo())
-    html.extend(_body())
     html.extend(_foot())
     return ''.join([ str(x) for x in html ])
 
 
-def _sales():
+def _head():
     _html = []
     _html.extend([ '<table width=100%><tr><td width=100>.</td>',
-                   '<td><h1> Welcome to Hex7 Internet Solutions</h1> <br>',
-                   '<font size=+1>We Provide the Following Services:<br><ul>',
+                   '<td><h1>Hex7 Internet Solutions</h1> <br>' ])
+    return _html
+ 
+
+def _sales():
+    _html = []
+    _html.extend([ '<font size=+1>We Provide the Following Services:<br><ul>',
                    '<li>Linux Cloud Migrations with or without Containers</li>',
                    '<li>Cloud Pipelines with CodePipeline, Gitlab, Jenkins, or BuildBot</li>',
                    '<li>Infrastructure as Code with Terraform or Cloudformation</li>',
@@ -52,13 +58,12 @@ def _sales():
                    'Public Domain Art Slideshow</li>',
                    '<li><a href=http://hubbleshow.com>http://hubbleshow.com</a> ',
                    'NASA Hubble Telescope Image Gallery and Slideshow</li></ul>',
-                   '<p><br><p><b>Contact: sales at hex7 dot com<br>Call: 347.391.1709</b>',
                    '</td><td width=100>.</td></tr></table>'])
     return _html
 
 
 
-def _head():
+def _google():
     return [ "<html><head><title>Hex 7 Internet Solutions</title>",
              "<meta http-equiv=refresh content=20>",
              "<link rel=\"shortcut icon\" href=https://s3-us-west-1.amazonaws.com/hex7/favicon.ico>",
@@ -94,7 +99,7 @@ def _get_ip():
     else:
         return request.remote_addr
 
-def _body():
+def _art():
     _html = []
     _html.append("<table>")
     _column_counter = 0
@@ -117,8 +122,7 @@ def _body():
 def _foot():
     _html = []
     _textcolor = "red"
-    _html.extend([ "<center><br><p><br><p><br><p>",
-                   "<table border=0 width=100%><tr>",
+    _html.extend([ "<table border=0 width=100%><tr>",
                    "<td width=40% align=center>",
                    "<b><font size=5>&copy;2000-2020</font></b><br>",
                    "<a target=_blank href=http://hex7.com>",
