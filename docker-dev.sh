@@ -15,5 +15,5 @@ docker run --rm --name hex7-dev -d --network=hex7 -p 8000:8000 hex7-dev
 sleep 5
 docker ps
 
-docker logs hex7-dev
 echo "docker run --rm --name hex7-dev -ti -p 8000:8000 hex7-dev bash"
+docker logs hex7-dev -f

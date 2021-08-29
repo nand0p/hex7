@@ -79,7 +79,7 @@ def _google():
 
 def _rezo():
     _html = []
-    _ip = _get_ip()[0]
+    _ip = _get_ip()
     _html.extend([ '<center><h1 name=ip>', _ip, '</h1><br>' ])
     if _ip != '127.0.0.1' and _ip != '172.17.0.1':
         if not IPAddress(_ip).is_private():
@@ -94,8 +94,8 @@ def _rezo():
     return _html
 
 def _get_ip():
-    if request.headers.getlist("X-Forwarded-For"):
-        return request.headers.getlist("X-Forwarded-For")[0]
+    if request.headers.get("X-Forwarded-For"):
+        return request.headers.get("X-Forwarded-For")[0]
     else:
         return request.remote_addr
 
