@@ -97,7 +97,8 @@ def _get_ip():
     if request.headers.getlist("X-Forwarded-For"):
         return request.headers.getlist("X-Forwarded-For")[0]
     else:
-        return request.remote_addr
+        return request.remote_addr[0]
+        #return request.remote_addr
 
 def _art():
     _html = []
