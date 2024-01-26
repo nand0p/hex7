@@ -18,6 +18,6 @@ ENV FLASK_APP index.py
 ENV FLASK_ENV production
 ENV FLASK_DEBUG 1
 
-CMD ["flask", "run", "--host=0.0.0.0", "--port=8000"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=31000"]
 
 #CMD [ "gunicorn", "hex7:app" ]
