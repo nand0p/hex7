@@ -35,9 +35,8 @@ jobs:
 
 
       - name: prep workspace
-        run: |
-          rm -vf index.html
-          touch index.html
+        run: touch index.html
+        working-directory: deploy
 
 
       - name: init terraform
@@ -70,7 +69,11 @@ jobs:
 
       - name: test site
         run: |
+          echo testing http://www.${{ env.S3_PUBLIC_BUCKET }}
           curl http://www.${{ env.S3_PUBLIC_BUCKET }}
+          echo testing https://www.${{ env.S3_PUBLIC_BUCKET }}
           curl https://www.${{ env.S3_PUBLIC_BUCKET }}
+          echo testing http://${{ env.S3_PUBLIC_BUCKET }}
           curl http://${{ env.S3_PUBLIC_BUCKET }}
+          echo testing https://${{ env.S3_PUBLIC_BUCKET }}
           curl https://${{ env.S3_PUBLIC_BUCKET }}
