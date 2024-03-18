@@ -17,7 +17,9 @@ resource "aws_cloudfront_distribution" "hex7" {
     prefix          = "cloudfront"
   }
 
-  #aliases = ["www.hex7.com"]
+  aliases = [ "hex7.com",
+              "www.hex7.net",
+              "hex7.net" ]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]

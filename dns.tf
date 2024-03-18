@@ -37,6 +37,8 @@ resource "aws_route53_record" "hex7_com_www" {
     evaluate_target_health = true
   }
 }
+
+
 resource "aws_route53_record" "hex7_net_www" {
   zone_id = data.aws_route53_zone.hex7_net.zone_id
   name    = "www.${var.product}.net."

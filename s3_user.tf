@@ -29,5 +29,5 @@ output "iam_user" {
 
 output "iam_secret" {
   value       = nonsensitive(aws_iam_access_key.hex7.secret)
-  sensitive   = false
+  sensitive   = true
 }
