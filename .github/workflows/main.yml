@@ -61,7 +61,7 @@ jobs:
         run: |
           git rev-parse HEAD | tee -a index.html
           echo '<br>' | tee -a index.html
-          echo '<a href=http://github.com/nand0p/hex7>http://github.com/nand0p/hex7</a>' | tee -a index
+          echo '<a href=http://github.com/nand0p/hex7>http://github.com/nand0p/hex7</a>' | tee -a index.html
           echo '<br>' | tee -a index.html
           date | tee -a index.html
           echo '</body></html>' | tee -a index.html
