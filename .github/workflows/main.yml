@@ -42,12 +42,6 @@ jobs:
           python3 app.py
           cp index.html deploy/index.html
           ls -la deploy/
-          git rev-parse HEAD | tee -a index.html
-          echo '<br>' | tee -a index.html
-          echo '<a href=http://github.com/nand0p/hex7>http://github.com/nand0p/hex7</a>' | tee -a index.html
-          echo '<br>' | tee -a index.html
-          date | tee -a index.html
-          echo '</body></html>' | tee -a index.html
 
 
       - name: init hex7 terraform
@@ -66,6 +60,12 @@ jobs:
 
       - name: run hex7 terraform
         run: |
+          git rev-parse HEAD | tee -a index.html
+          echo '<br>' | tee -a index.html
+          echo '<a href=http://github.com/nand0p/hex7>http://github.com/nand0p/hex7</a>' | tee -a index.html
+          echo '<br>' | tee -a index.html
+          date | tee -a index.html
+          echo '</body></html>' | tee -a index.html
           pwd
           terraform apply --auto-approve
         working-directory: deploy
