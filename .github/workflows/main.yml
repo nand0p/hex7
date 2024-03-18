@@ -35,10 +35,7 @@ jobs:
 
 
       - name: prep workspace
-        run: |
-          rm -vf index.html
-          apt-get update -y
-          apt-get install -y terraform
+        run: rm -vf index.html
 
 
       - name: init terraform
@@ -47,6 +44,8 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.S3_USER }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET }}
           TF_VAR_app_version: ${{ env.APP_VERSION }}
+          TF_LOG: INFO
+          TF_INPUT: false
 
 
       - name: run terraform 
@@ -55,6 +54,8 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.S3_USER }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET }}
           TF_VAR_app_version: ${{ env.APP_VERSION }}
+          TF_LOG: INFO
+          TF_INPUT: false
 
 
       - name: test site
