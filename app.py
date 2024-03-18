@@ -67,7 +67,7 @@ def foot():
                   '<b><font size=5>&copy;2024 </font></b>',
                   '<a target=_blank href=https://www.hex7.com>',
                   '<b><font color=', textcolor, ' size=+2>Hex 7 Internet Solutions</font></b></a>',
-                  '</td></tr></table></body></html>' ])
+                  '</td></tr></table>' ])
     return html
 
 

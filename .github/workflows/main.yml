@@ -58,7 +58,12 @@ jobs:
 
       - name: run hex7 terraform
         run: |
-          echo change | tee -a index.html
+          git rev-parse HEAD | tee -a index.html
+          echo '<br>' | tee -a index.html
+          echo '<a href=http://github.com/nand0p/hex7>http://github.com/nand0p/hex7</a>' | tee -a index
+          echo '<br>' | tee -a index.html
+          date | tee -a index.html
+          echo '</body></html>' | tee -a index.html
           pwd
           terraform apply --auto-approve
         working-directory: deploy
