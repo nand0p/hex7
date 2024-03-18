@@ -1,5 +1,4 @@
 provider "aws" {
-  profile = var.aws_profile
   region  = var.aws_region
 
   default_tags {
@@ -16,6 +15,5 @@ terraform {
     key     = "hex7.tfstate"
     region  = "us-east-1"
     encrypt = false
-    profile = "default"
   }
 }
