@@ -38,7 +38,7 @@ jobs:
         run: |
           echo prepare workspace
           pwd
-          cp -v index.html deploy/index.html
+          touch deploy/index.html
           ls -la deploy/
 
 
