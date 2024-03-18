@@ -41,11 +41,14 @@ jobs:
       - name: init terraform
         run: |
           pwd
+          aws sts get-caller-identity
           terraform init
         working-directory: deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.S3_USER }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET }}
+          TF_VAR_AWS_ACCESS_KEY_ID: ${{ secrets.S3_USER }}
+          TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET }}
           TF_VAR_app_version: ${{ env.APP_VERSION }}
           TF_LOG: INFO
           TF_INPUT: false
