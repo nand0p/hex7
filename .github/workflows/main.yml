@@ -34,7 +34,7 @@ jobs:
           echo "AWS_REGION=${AWS_REGION}" >> $GITHUB_ENV
 
 
-      - name: prepare workspace
+      - name: prepare hex7 workspace
         run: |
           echo prepare workspace
           pwd
@@ -43,7 +43,7 @@ jobs:
           ls -la deploy/
 
 
-      - name: init terraform
+      - name: init hex7 terraform
         run: |
           pwd
           terraform init
@@ -57,7 +57,7 @@ jobs:
           TF_INPUT: false
 
 
-      - name: run terraform 
+      - name: run hex7 terraform
         run: |
           pwd
           terraform apply --auto-approve
@@ -69,9 +69,36 @@ jobs:
           TF_INPUT: false
 
 
-      - name: test site
+      - name: test hex7 sites
         run: |
-          echo testing http://www.${{ env.S3_PUBLIC_BUCKET }}
-          curl http://www.${{ env.S3_PUBLIC_BUCKET }}
-          echo testing https://www.${{ env.S3_PUBLIC_BUCKET }}
-          curl https://www.${{ env.S3_PUBLIC_BUCKET }}
+          echo
+          echo hex7.net
+          echo
+          echo testing http://hex7.net
+          curl http://hex7.net
+          echo testing https://hex7.net
+          curl https://hex7.net
+          echo
+          echo www.hex7.net
+          echo
+          echo testing http://www.hex7.net
+          curl http://www.hex7.net
+          echo testing https://www.hex7.net
+          curl https://www.hex7.net
+          echo
+          echo hex7.com
+          echo
+          echo testing http://hex7.com
+          curl http://hex7.com
+          echo testing https://hex7.com
+          curl https://hex7.com
+          echo
+          echo www.hex7.com
+          echo
+          echo testing http://www.hex7.com
+          curl http://www.hex7.com
+          echo testing https://www.hex7.com
+          curl https://www.hex7.com
+          echo
+          echo
+          echo success
