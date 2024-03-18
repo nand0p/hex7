@@ -34,8 +34,13 @@ jobs:
           echo "AWS_REGION=${AWS_REGION}" >> $GITHUB_ENV
 
 
-      - name: prep workspace
-        run: cp -v index.html deploy/index.html
+      - name: prepare workspace
+        run: |
+          echo prepare workspace
+          pwd
+          rm -fv deploy/index.html
+          touch deploy/index.html
+          ls -la deploy/
 
 
       - name: init terraform
