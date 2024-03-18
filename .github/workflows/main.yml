@@ -35,8 +35,7 @@ jobs:
 
 
       - name: prep workspace
-        run: touch index.html
-        working-directory: deploy
+        run: cp -v index.html deploy/index.html
 
 
       - name: init terraform
@@ -73,7 +72,3 @@ jobs:
           curl http://www.${{ env.S3_PUBLIC_BUCKET }}
           echo testing https://www.${{ env.S3_PUBLIC_BUCKET }}
           curl https://www.${{ env.S3_PUBLIC_BUCKET }}
-          echo testing http://${{ env.S3_PUBLIC_BUCKET }}
-          curl http://${{ env.S3_PUBLIC_BUCKET }}
-          echo testing https://${{ env.S3_PUBLIC_BUCKET }}
-          curl https://${{ env.S3_PUBLIC_BUCKET }}
