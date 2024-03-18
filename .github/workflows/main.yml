@@ -38,8 +38,7 @@ jobs:
         run: |
           echo prepare workspace
           pwd
-          rm -fv deploy/index.html
-          touch deploy/index.html
+          cp -v index.html deploy/index.html
           ls -la deploy/
 
 
@@ -59,6 +58,7 @@ jobs:
 
       - name: run hex7 terraform
         run: |
+          echo change | tee -a index.html
           pwd
           terraform apply --auto-approve
         working-directory: deploy
