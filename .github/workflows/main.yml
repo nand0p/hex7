@@ -1,0 +1,65 @@
+name: hex7
+
+on:
+  push:
+    branches: [ master ]
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  deploy_hex7:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: check out repo
+        uses: actions/checkout@v2
+
+      - name: Setting export variables values
+        run: |
+          pwd
+          ls -la
+          env
+          TIMEZONE=EST5EDT
+          APP_VERSION=$(cat VERSION)
+          S3_PUBLIC_BUCKET=hex7.com
+          AWS_REGION=us-east-1
+          echo "TZ=${TIMEZONE}"
+          echo "APP_VERSION=${APP_VERSION}"
+          echo "S3_PUBLIC_BUCKET=${S3_PUBLIC_BUCKET}"
+          echo "AWS_REGION=${AWS_REGION}"
+          echo "TZ=${TIMEZONE}" >> $GITHUB_ENV
+          echo "APP_VERSION=${APP_VERSION}" >> $GITHUB_ENV
+          echo "S3_PUBLIC_BUCKET=${S3_PUBLIC_BUCKET}" >> $GITHUB_ENV
+          echo "AWS_REGION=${AWS_REGION}" >> $GITHUB_ENV
+
+
+      - name: prep workspace
+        run: |
+          rm -vf index.html
+          apt-get update -y
+          apt-get install -y terraform
+
+
+      - name: init terraform
+        run: terraform init
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.S3_USER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET }}
+          TF_VAR_app_version: ${{ env.APP_VERSION }}
+
+
+      - name: run terraform 
+        run: terraform apply
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.S3_USER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET }}
+          TF_VAR_app_version: ${{ env.APP_VERSION }}
+
+
+      - name: test site
+        run: |
+          curl http://${{ env.S3_PUBLIC_BUCKET }}
+          curl https://${{ env.S3_PUBLIC_BUCKET }}
+          curl http://www.${{ env.S3_PUBLIC_BUCKET }}
+          curl https://www.${{ env.S3_PUBLIC_BUCKET }}
