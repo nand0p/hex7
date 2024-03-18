@@ -39,7 +39,9 @@ jobs:
 
 
       - name: init terraform
-        run: terraform init
+        run: |
+          pwd
+          terraform init
         working-directory: deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.S3_USER }}
@@ -50,7 +52,9 @@ jobs:
 
 
       - name: run terraform 
-        run: terraform apply
+        run: |
+          pwd
+          terraform apply
         working-directory: deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.S3_USER }}
