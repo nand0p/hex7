@@ -60,7 +60,7 @@ jobs:
 
       - name: run hex7 terraform
         run: |
-          echo "${{ env.APP_VERSION }}:" | tee -a index.html
+          echo "${{ env.APP_VERSION }} :" | tee -a index.html
           git rev-parse HEAD | tee -a index.html
           echo '<br>' | tee -a index.html
           echo '<a href=http://github.com/nand0p/hex7>http://github.com/nand0p/hex7</a>' | tee -a index.html
