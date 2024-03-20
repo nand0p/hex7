@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Get Headers and Metadata</title>
+</head>
+<body>
+
+
+  <h1>Forward Resolution</h1>
+  <p id="resolution">
+    <script type="application/javascript">
+      function getIP(json) {
+        document.write("Public IP Address: ", json.ip);
+      }
+    </script>
+    <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+  </p>
+
+  <h1>Reverse Resolution</h1>
+  <p id="reverse">
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+
+
+    <script type="application/javascript">
+
+      require(['dns'], function (dns) {
+        dns.reverse(json.ip, function (err, domains) {
+          if (err) { throw err; }
+          console.log('reverse for ' + json.ip + ': ' + JSON.stringify(domains));
+          document.write('reverse for ' + json.ip + ': ' + JSON.stringify(domains));
+        });
+      });
+
+      app.get('/', (req, res) => {
+        const remoteAddress = req.connection.remoteAddress;
+        dns.reverse(remoteAddress, (err, hostnames) => {
+          if (err) {
+            document.write(err);
+            return;
+          }
+          document.write(`Possible hostnames: ${hostnames}`);
+        });
+      });
+
+
+      require(['request-ip'], function (requestIp) {
+        app.get('/', (req, res) => {
+          requestIp.getClientIp(req, (err, userIp) => {
+            if (err) {
+              document.write(err);
+              return;
+            }
+            document.write(`User IP: ${userIp}`);
+          });
+        });
+      });
+
+    </script>
+  </p>
+  
+
+</body>
+</html>

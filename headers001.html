@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Get Headers and Metadata</title>
+</head>
+<body>
+
+  <h1>Public IP Address</h1>
+  <p id="ip">
+    <script type="application/javascript">
+      function getIP(json) {
+        document.write("Public IP Address: ", json.ip);
+      }
+    </script>
+    <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+  </p>
+
+
+  <h1>Headers and Metadata</h1>
+  <p id="headers">
+    <script>
+      var x= "";
+      if(window.fetch)
+         fetch(location, {method:'HEAD'})
+         .then(function(r) {
+            r.headers.forEach(
+               function(Value, Header) { x= x + Header + "\n" + Value + "\n\n"; }
+            );
+         })
+         .then(function() {
+            document.body.appendChild(document.createElement("pre")).textContent= x;
+         });
+      else
+        document.write("This does not work in your browser - no support for fetch API");
+    </script>
+  </p>
+
+
+</body>
+</html>
+
